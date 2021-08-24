@@ -1,0 +1,22 @@
+
+<h1>Search for posts</h1>
+<form method="get">
+    {{form.as_p}}
+    <input class="my-1 btn btn-primary" type="submit" value="search">
+</form>
+
+{% if q %}
+   <p>
+        {% with results.count as total_results %}
+            Found {{ total_results }} result{{ total_results|pluralize }}
+        {% endwith %}
+   </p> 
+{% endif %}
+{% for result in results %}
+    <div>
+        <h3>{{ result.title|truncatechars:50 }}</h3>
+        <small>{{ result.headline|safe }}</small>
+    </div>
+{% empty %}
+    <p>There are no results for your query.</p>
+{% endfor %}
